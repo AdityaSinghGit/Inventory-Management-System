@@ -22,12 +22,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-public class InventoryController{
+public class InventoryController {
+    // calls service layer (where service is interface)
 
     // @Autowired
     // InventoryService inventory = new InventoryServiceImpl();
 
-    //Dependancy Injection
+    // Dependancy Injection
     @Autowired
     InventoryService inventory;
 
@@ -38,18 +39,18 @@ public class InventoryController{
 
     @PostMapping("saveproduct")
     public String saveProduct(@RequestBody Product entity) {
-        String prodEnt= inventory.createProduct(entity);
-        if(prodEnt.equals("save")){
+        String prodEnt = inventory.createProduct(entity);
+        if (prodEnt.equals("save")) {
             return "Product Save Successfull";
 
-        }else{
+        } else {
             return "Category Not Found";
         }
     }
 
     @DeleteMapping("deleteproduct/{id}")
-    public String deleteProduct(@PathVariable String id){
-        if(inventory.deleteProduct(id))
+    public String deleteProduct(@PathVariable String id) {
+        if (inventory.deleteProduct(id))
             return "Delete Successfull";
         return "Not Found";
     }
@@ -66,8 +67,8 @@ public class InventoryController{
     }
 
     @DeleteMapping("deletecategory/{id}")
-    public String deleteCategory(@PathVariable String id){
-        if(inventory.deleteCategory(id))
+    public String deleteCategory(@PathVariable String id) {
+        if (inventory.deleteCategory(id))
             return "Delete Successfull";
         return "Not Found";
     }
@@ -76,14 +77,13 @@ public class InventoryController{
     public String purchaseProduct(@RequestBody Purchase pur) {
         String purProd = inventory.purchaseProduct(pur);
 
-        if(purProd.equals("save")){
+        if (purProd.equals("save")) {
             return "Purchase Product Successfull";
-        }
-        else{
+        } else {
             return "Product Not Found";
         }
     }
-    
+
     @GetMapping("purchaselist")
     public List<Purchase> purchaseList(@RequestParam(defaultValue = "defaultvalue") String param) {
         return inventory.purchaseList();
@@ -92,7 +92,7 @@ public class InventoryController{
     @PostMapping("stockentry")
     public String stockEntry(@RequestBody Stock stk) {
         String stockEntry = inventory.stockEntry(stk);
-        if(stockEntry.equals("save")){
+        if (stockEntry.equals("save")) {
             return "Stock Entry Successfull";
         }
         return "Product Not Found";
@@ -102,16 +102,14 @@ public class InventoryController{
     public List<Stock> stockList(@RequestParam(defaultValue = "defaultvalue") String param) {
         return inventory.stockList();
     }
-    
-    
-    
+
     @PostMapping("buynow")
     public String buyNow(@RequestBody BuyNow buy) {
         return inventory.buyNow(buy);
     }
-    
+
     @GetMapping("buynowlist")
-    public List<BuyNow> buyNowList(@RequestParam(defaultValue = "defaultvalue") String param){
+    public List<BuyNow> buyNowList(@RequestParam(defaultValue = "defaultvalue") String param) {
         return inventory.buynowList();
     }
 }
